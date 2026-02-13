@@ -1,0 +1,144 @@
+body{
+  margin:0;
+  font-family: 'Autour One', cursive;
+  background: linear-gradient(135deg, #ffd6e8, #e6d9ff);
+  min-height: 100vh;
+}
+/* Use Autour One everywhere */
+body,
+h1,
+h2,
+h3,
+p,
+button,
+span {
+  font-family: 'Autour One', cursive !important;
+  font-weight: 400 !important;
+}
+
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.love-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .love-card {
+    max-width: 620px;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 18px;
+  animation: floatUp 8s linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Dramatic reveal animation */
+.dramatic {
+  animation: dramaticReveal 1.6s ease forwards;
+}
+
+@keyframes dramaticReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Delayed text appearance */
+.delay-1 {
+  animation-delay: 0.6s;
+}
+
+.delay-2 {
+  animation-delay: 1.2s;
+}
+
+/* Gallery Area */
+.gallery-area {
+  position: relative;
+  width: 100%;
+  height: 260px;
+}
+
+/* Polaroid-style photo */
+.photo-card {
+  position: absolute;
+  width: 140px;
+  padding: 8px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  cursor: grab;
+  transition: transform 0.3s ease;
+}
+
+.photo-card:active {
+  cursor: grabbing;
+}
+
+/* Image inside card */
+.photo-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Desktop enhancement */
+@media (min-width: 768px) {
+  .gallery-area {
+    height: 320px;
+  }
+
+  .photo-card {
+    width: 160px;
+  }
+}
