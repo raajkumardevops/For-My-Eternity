@@ -76,7 +76,8 @@ Whatever I did, I am really sorry for it.
 And one last thing —
 
 Whatever and wherever it takes us,
-WE FIGHT, WE CRY, WE LAUGH, AND WE LOVE — FOREVER AND EVER  🤍🫂🪄.
+WE FIGHT, WE CRY, WE LAUGH, AND WE LOVE — FOREVER AND EVER  
+🤍🫂🪄.
 
 Happy Valentine’s Day to my Valentine 🤍`;
 

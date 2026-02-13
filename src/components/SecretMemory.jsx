@@ -37,7 +37,8 @@ const SecretMemory = ({ goBack }) => {
             You proved to me once again that you are the only person who makes me happy more than anyone else. <br /> <br />
 
             Thank you for that day, and thank you for being with me. <br />
-            I love you forever and ever 🤍🫂🪄
+            I love you forever and ever <br />
+             🤍🫂🪄
           </p>
         </div>
       </div>
