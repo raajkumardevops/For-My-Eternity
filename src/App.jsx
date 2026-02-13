@@ -8,6 +8,8 @@ import Therapy from "./components/Therapy";
 import Gallery from "./components/Gallery";
 import LoveLetter from "./components/LoveLetter";
 import BackButton from "./components/BackButton"; 
+import SecretMemory from "./components/SecretMemory";
+
 
 function App() {
   // 🔁 HISTORY-BASED NAVIGATION
@@ -121,9 +123,20 @@ function App() {
       )}
 
       {/* 💌 LOVE LETTER */}
+
       {step === "letter" && (
-        <LoveLetter goBack={goBack} />
+        <LoveLetter
+          goBack={goBack}
+          goSecret={() => goTo("secret")}
+        />
       )}
+
+      {step === "secret" && (
+        <SecretMemory goBack={goBack} />
+      )}
+
+
+
     </>
   );
 }

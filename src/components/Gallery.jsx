@@ -14,22 +14,55 @@ const images = [img1, img2, img3, img4, img5, img6, img7];
 
 const Gallery = ({ goNext, goBack }) => {
   const [cards, setCards] = useState(
-    images.map((img, i) => ({ img, x: 0, y: 0, z: i }))
+    images.map((img, i) => ({
+      img,
+      x: 0,
+      y: 0,
+      z: i
+    }))
   );
 
+  const [activeImage, setActiveImage] = useState(null);
+  const [dragging, setDragging] = useState(false);
+
   const startDrag = (index, e) => {
-    const startX = e.clientX ?? e.touches[0].clientX;
-    const startY = e.clientY ?? e.touches[0].clientY;
+    e.preventDefault();
+    setDragging(false);
+
+    const isTouch = e.type === "touchstart";
+    const startX = isTouch ? e.touches[0].clientX : e.clientX;
+    const startY = isTouch ? e.touches[0].clientY : e.clientY;
+
+    const { x: initialX, y: initialY } = cards[index];
+
+    let rafId = null;
 
     const move = (ev) => {
-      const x = ev.clientX ?? ev.touches[0].clientX;
-      const y = ev.clientY ?? ev.touches[0].clientY;
+      const currentX = ev.touches ? ev.touches[0].clientX : ev.clientX;
+      const currentY = ev.touches ? ev.touches[0].clientY : ev.clientY;
 
-      setCards((prev) =>
-        prev.map((c, i) =>
-          i === index ? { ...c, x: x - startX, y: y - startY, z: 100 } : c
-        )
-      );
+      // If finger moved enough → it's a drag, not a click
+      if (Math.abs(currentX - startX) > 5 || Math.abs(currentY - startY) > 5) {
+        setDragging(true);
+      }
+
+      if (rafId) return;
+
+      rafId = requestAnimationFrame(() => {
+        setCards((prev) =>
+          prev.map((c, i) =>
+            i === index
+              ? {
+                  ...c,
+                  x: initialX + (currentX - startX),
+                  y: initialY + (currentY - startY),
+                  z: 100
+                }
+              : c
+          )
+        );
+        rafId = null;
+      });
     };
 
     const stop = () => {
@@ -37,20 +70,26 @@ const Gallery = ({ goNext, goBack }) => {
       window.removeEventListener("touchmove", move);
       window.removeEventListener("mouseup", stop);
       window.removeEventListener("touchend", stop);
+      if (rafId) cancelAnimationFrame(rafId);
     };
 
     window.addEventListener("mousemove", move);
-    window.addEventListener("touchmove", move);
+    window.addEventListener("touchmove", move, { passive: false });
     window.addEventListener("mouseup", stop);
     window.addEventListener("touchend", stop);
+  };
+
+  const handleImageClick = (img) => {
+    if (!dragging) {
+      setActiveImage(img);
+    }
   };
 
   return (
     <div className="app-wrapper">
       <BackButton onBack={goBack} />
-      <div className="love-card fade-in">
-        
 
+      <div className="love-card fade-in">
         <p className="fs-5 mb-4">
           These little moments…  
           they all mean so much to me 💗
@@ -67,8 +106,9 @@ const Gallery = ({ goNext, goBack }) => {
               }}
               onMouseDown={(e) => startDrag(i, e)}
               onTouchStart={(e) => startDrag(i, e)}
+              onClick={() => handleImageClick(card.img)}
             >
-              <img src={card.img} alt="memory" />
+              <img src={card.img} alt="memory" draggable={false} />
             </div>
           ))}
         </div>
@@ -80,6 +120,14 @@ const Gallery = ({ goNext, goBack }) => {
           Read something for you 💌
         </button>
       </div>
+
+      {/* 🌸 FULLSCREEN IMAGE VIEW */}
+      {activeImage && (
+        <div className="image-preview" onClick={() => setActiveImage(null)}>
+          <img src={activeImage} alt="full memory" />
+          <span className="close-preview">✕</span>
+        </div>
+      )}
     </div>
   );
 };

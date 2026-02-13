@@ -25,6 +25,7 @@ const Conversation = ({ onFinish, goBack }) => {
         <p className="fs-5 mb-4">
           Tell me something first… 💭  
           How are you feeling right now?
+          (Click On Happy)
         </p>
 
         <button

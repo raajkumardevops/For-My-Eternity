@@ -1,10 +1,14 @@
-body{
-  margin:0;
+/* ==============================
+   GLOBAL
+============================== */
+
+body {
+  margin: 0;
   font-family: 'Autour One', cursive;
   background: linear-gradient(135deg, #ffd6e8, #e6d9ff);
   min-height: 100vh;
 }
-/* Use Autour One everywhere */
+
 body,
 h1,
 h2,
@@ -23,6 +27,10 @@ span {
   align-items: center;
 }
 
+/* ==============================
+   CARDS
+============================== */
+
 .love-card {
   width: 100%;
   max-width: 420px;
@@ -35,6 +43,10 @@ span {
     max-width: 620px;
   }
 }
+
+/* ==============================
+   FADE / FLOAT
+============================== */
 
 .fade-in {
   animation: fadeIn 1.2s ease-in-out;
@@ -73,7 +85,10 @@ span {
   }
 }
 
-/* Dramatic reveal animation */
+/* ==============================
+   DRAMATIC REVEAL
+============================== */
+
 .dramatic {
   animation: dramaticReveal 1.6s ease forwards;
 }
@@ -92,23 +107,25 @@ span {
   }
 }
 
-/* Delayed text appearance */
-.delay-1 {
-  animation-delay: 0.6s;
-}
+.delay-1 { animation-delay: 0.6s; }
+.delay-2 { animation-delay: 1.2s; }
 
-.delay-2 {
-  animation-delay: 1.2s;
-}
+/* ==============================
+   GALLERY
+============================== */
 
-/* Gallery Area */
 .gallery-area {
   position: relative;
   width: 100%;
   height: 260px;
 }
 
-/* Polaroid-style photo */
+@media (min-width: 768px) {
+  .gallery-area {
+    height: 320px;
+  }
+}
+
 .photo-card {
   position: absolute;
   width: 140px;
@@ -116,46 +133,79 @@ span {
   background: white;
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
   cursor: grab;
-  transition: transform 0.3s ease;
+  touch-action: none;
+  user-select: none;
 }
 
 .photo-card:active {
   cursor: grabbing;
 }
 
-/* Image inside card */
 .photo-card img {
   width: 100%;
-  height: auto;          /* 🔑 DO NOT FORCE HEIGHT */
+  height: auto;
   border-radius: 6px;
   display: block;
+  pointer-events: none;
 }
 
-/* Desktop enhancement */
 @media (min-width: 768px) {
-  .gallery-area {
-    height: 320px;
-  }
-
   .photo-card {
     width: 160px;
   }
 }
+
 /* ==============================
-   BOOK LETTER (FINAL)
+   FULL IMAGE PREVIEW
+============================== */
+
+.image-preview {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 10000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-preview img {
+  max-width: 90%;
+  max-height: 85%;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+.close-preview {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 1.6rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ==============================
+   BOOK STRUCTURE (FIXED)
 ============================== */
 
 .book {
   position: relative;
-  width: 280px;
-  height: 360px;
+  width: 340px;
+  height: 410px;
   perspective: 1200px;
-  transform-style: preserve-3d;
-  cursor: pointer;
 }
 
-/* Shared book face */
+@media (max-width: 480px) {
+  .book {
+    width: 260px;
+    height: 340px;
+  }
+}
+
 .book-cover,
 .book-content {
   position: absolute;
@@ -167,8 +217,9 @@ span {
 }
 
 /* ==============================
-   BOOK COVER
+   BOOK COVER (FLIP WORKS HERE)
 ============================== */
+
 .book-cover {
   background: linear-gradient(135deg, #ffccd5, #fbcfe8);
   transform-origin: left;
@@ -179,115 +230,54 @@ span {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  padding: 24px;
   text-align: center;
 }
 
-.book-cover h2 {
-  margin-bottom: 10px;
-  color: #6a1b3a;
-}
-
-.book-cover p {
-  font-size: 0.9rem;
-  opacity: 0.85;
-}
-
-/* ==============================
-   BOOK INSIDE CONTENT
-============================== */
-.book-content {
-  background: #fffafc;
-  z-index: 1;
-
-  padding: 24px;
-  overflow-y: auto;           /* 🔑 scroll inside book */
-  text-align: left;
-
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #4a1d2f;
-
-  .book-content {
-  /* existing styles stay */
-
-  background-color: #fffafc;
-  background-image:
-    repeating-linear-gradient(
-      to bottom,
-      rgba(0,0,0,0.03),
-      rgba(0,0,0,0.03) 1px,
-      transparent 1px,
-      transparent 24px
-    );
-}
-
-}
-
-/* Text formatting inside book */
-.book-content p {
-  margin: 0;
-  white-space: pre-line;      /* keeps line breaks */
-}
-
-/* ==============================
-   FLIP ANIMATION
-============================== */
 .book.open .book-cover {
   transform: rotateY(-180deg);
 }
 
 /* ==============================
-   MOBILE OPTIMIZATION
+   BOOK CONTENT (SCROLLABLE)
 ============================== */
-@media (max-width: 480px) {
-  .book {
-    width: 260px;
-    height: 340px;
-  }
+
+.book-content {
+  background-color: #fffafc;
+  padding: 24px;
+  overflow-y: auto;
+  z-index: 1;
+
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #4a1d2f;
+
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
+.book.open .book-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* TEXT */
+.book-content p {
+  white-space: pre-line;
+  margin: 0;
+}
+
+/* SIGNATURE — NATURAL FLOW */
 .signature {
   display: block;
-  margin-top: 24px;
+  margin-top: 32px;
   font-size: 1.2rem;
-  opacity: 0;
-  animation: sign 2s ease forwards;
-  animation-delay: 1.2s;
-}
-
-@keyframes sign {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Heart glow effect */
-.glow {
-  animation: heartGlow 1.5s ease-in-out;
-}
-
-@keyframes heartGlow {
-  0% {
-    box-shadow: 0 0 0 rgba(255,105,135,0.0);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(255,105,135,0.6);
-  }
-  100% {
-    box-shadow: 0 0 0 rgba(255,105,135,0.0);
-  }
+  opacity: 1;
 }
 
 
 /* ==============================
-   BACK ARROW – FINAL FIX
+   BACK BUTTON
 ============================== */
 
 .back-arrow-wrapper {
@@ -295,14 +285,11 @@ span {
   top: 12px;
   left: 12px;
   z-index: 10000;
-
-  /* Prevent layout shift */
   pointer-events: none;
 }
 
 .back-arrow {
   pointer-events: auto;
-
   width: 42px;
   height: 42px;
 
@@ -317,12 +304,9 @@ span {
   color: #6a1b3a;
 
   font-size: 1.5rem;
-  line-height: 1;
-
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
   cursor: pointer;
 
-  /* No animation = no jump */
   transition: transform 0.15s ease;
 }
 
@@ -330,14 +314,25 @@ span {
   transform: scale(0.92);
 }
 
-/* Desktop spacing */
 @media (min-width: 768px) {
   .back-arrow-wrapper {
     top: 18px;
     left: 18px;
   }
 }
-.preserve-lines {
-  white-space: pre-line;
+
+/* ==============================
+   SECRET MEMORY
+============================== */
+
+.secret-card {
+  background: #fffafc;
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.15);
 }
 
+.secret-card img {
+  width: 100%;
+  border-radius: 10px;
+}
