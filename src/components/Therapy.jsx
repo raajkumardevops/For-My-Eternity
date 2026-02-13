@@ -15,18 +15,29 @@ const Therapy = ({ goNext, goBack }) => {
           <>
             <p className="fs-5 mb-4 preserve-lines">
               Whenever you feel something…  
-              I’m right here 💗
+                and it feels too much, or too heavy…<br /><br />
+
+                You don’t have to be strong here. <br /> 
+                I’m right here,  
+                and I’m not going anywhere 🤍🫂
+
             </p>
 
             <button
               className="btn btn-outline-danger w-100 mb-3"
               onClick={() =>
                 setMessage(
-                  `Hey… its okay to feel like this sometimes
-                    You dont have to be strong all the time
-                    If I were there, Id just sit next to you quietly,
-                    hold your hand, and remind you
-                    that this feeling will pass — and you will too 🤍`
+                  `Hey… it’s okay to feel like this sometimes. 
+                    You don’t have to be strong when you’re with me.
+
+                    I were there for you 🫂,  
+                    I’d sit next to you in the quiet,  
+                    hold your hand 🫴, hugs you tight 🫂🫂
+                    and let you feel everything without rushing you.
+
+                    This feeling will pass.  
+                    And I’ll still be right here 🤍
+                    `
                 )
               }
             >
@@ -37,9 +48,16 @@ const Therapy = ({ goNext, goBack }) => {
               className="btn btn-outline-danger w-100 mb-3"
               onClick={() =>
                 setMessage(
-                  `Missing me means your heart knows where it belongs.
-                  And mine? It’s already with you.
-                  Always has been 🤍`
+                  `Missing me just means your heart knows where it feels safe.
+                      And mine…  
+                      it never learned how to leave you.
+
+                      Even if one day I’m not there in a physical way,  
+                      wherever life takes me, my soul will stay with you.
+
+                      I don’t belong to heaven or hell —  
+                      I only belong with you 🤍
+                    `
                 )
               }
             >
@@ -50,9 +68,22 @@ const Therapy = ({ goNext, goBack }) => {
               className="btn btn-outline-danger w-100"
               onClick={() =>
                 setMessage(
-                  `That smile of yours…
-                  it changes the way the world feels to me.
-                  I hope you never forget how beautiful you are when you smile like that ✨`
+                  `That smile of yours…  
+                      it changes the way the world feels to me.
+
+                      Everything feels worth facing  
+                      when I know it comes back to your happiness.
+
+                      I’m ready for the struggles,  
+                      the pain, the consequences —  
+                      all of it —  
+                      if it means seeing you smile.
+
+                      This isn’t just something I say.  
+                      You know me well enough .  
+                      once I give my word, I stand by it…  
+                      forever and ever 🤍
+                  `
                 )
               }
             >

@@ -9,15 +9,20 @@ const Surprise = ({ onNext, goBack }) => {
         <div className="love-card fade-in">
 
         <p className="fs-5 mb-4">
-          Before you go any further… 💭  
-          I want you to know something.
+          Before you go any further… 💭  <br /> <br />
+            Small reminder —<br />
+
+            You’re about to be appreciated me
+            a little more than usual 😄🤍
+            have only one option just click it
+
         </p>
 
         <button
           className="btn btn-outline-danger w-100"
           onClick={onNext}
         >
-          Tell me 💖
+          Sollitholaa 💖
         </button>
       </div>
     </div>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../styles/mobile.css";
 import BackButton from "./BackButton";
 
-import secretImg from "../assets/images/image2.jpeg"; // your secret image
+import secretImg from "../assets/images/secret.jpeg"; // your secret image
 
 const SecretMemory = ({ goBack }) => {
   const [activeImage, setActiveImage] = useState(null);
@@ -28,12 +28,16 @@ const SecretMemory = ({ goBack }) => {
         {/* 💌 SECRET TEXT CARD */}
         <div className="secret-card">
           <p className="preserve-lines">
-            This moment…
-            wasn’t planned.
-            wasn’t perfect.
+           This moment… <br />
+            This day (09/12/2025), the day I turned 21, means everything to me because you made me the happiest person in the world.
+            We enjoyed a lot, and it was my birthday.
+            I really enjoyed my life that day.  <br /><br />
 
-            But it was ours.
-            And that’s why it means everything 🤍
+            I love suspense and surprises, but you made it — I didn’t expect it at all.
+            You proved to me once again that you are the only person who makes me happy more than anyone else. <br /> <br />
+
+            Thank you for that day, and thank you for being with me. <br />
+            I love you forever and ever 🤍🫂🪄
           </p>
         </div>
       </div>

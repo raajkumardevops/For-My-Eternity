@@ -194,8 +194,8 @@ span {
 
 .book {
   position: relative;
-  width: 340px;
-  height: 410px;
+  width: 410px;
+  height: 480px;
   perspective: 1200px;
 }
 
