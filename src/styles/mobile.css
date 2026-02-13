@@ -127,9 +127,9 @@ span {
 /* Image inside card */
 .photo-card img {
   width: 100%;
-  height: 140px;
-  object-fit: cover;
+  height: auto;          /* 🔑 DO NOT FORCE HEIGHT */
   border-radius: 6px;
+  display: block;
 }
 
 /* Desktop enhancement */
@@ -142,3 +142,202 @@ span {
     width: 160px;
   }
 }
+/* ==============================
+   BOOK LETTER (FINAL)
+============================== */
+
+.book {
+  position: relative;
+  width: 280px;
+  height: 360px;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+/* Shared book face */
+.book-cover,
+.book-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  backface-visibility: hidden;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* ==============================
+   BOOK COVER
+============================== */
+.book-cover {
+  background: linear-gradient(135deg, #ffccd5, #fbcfe8);
+  transform-origin: left;
+  transition: transform 1.2s ease;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 24px;
+  text-align: center;
+}
+
+.book-cover h2 {
+  margin-bottom: 10px;
+  color: #6a1b3a;
+}
+
+.book-cover p {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+/* ==============================
+   BOOK INSIDE CONTENT
+============================== */
+.book-content {
+  background: #fffafc;
+  z-index: 1;
+
+  padding: 24px;
+  overflow-y: auto;           /* 🔑 scroll inside book */
+  text-align: left;
+
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #4a1d2f;
+
+  .book-content {
+  /* existing styles stay */
+
+  background-color: #fffafc;
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.03),
+      rgba(0,0,0,0.03) 1px,
+      transparent 1px,
+      transparent 24px
+    );
+}
+
+}
+
+/* Text formatting inside book */
+.book-content p {
+  margin: 0;
+  white-space: pre-line;      /* keeps line breaks */
+}
+
+/* ==============================
+   FLIP ANIMATION
+============================== */
+.book.open .book-cover {
+  transform: rotateY(-180deg);
+}
+
+/* ==============================
+   MOBILE OPTIMIZATION
+============================== */
+@media (max-width: 480px) {
+  .book {
+    width: 260px;
+    height: 340px;
+  }
+}
+
+.signature {
+  display: block;
+  margin-top: 24px;
+  font-size: 1.2rem;
+  opacity: 0;
+  animation: sign 2s ease forwards;
+  animation-delay: 1.2s;
+}
+
+@keyframes sign {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Heart glow effect */
+.glow {
+  animation: heartGlow 1.5s ease-in-out;
+}
+
+@keyframes heartGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(255,105,135,0.0);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255,105,135,0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(255,105,135,0.0);
+  }
+}
+
+
+/* ==============================
+   BACK ARROW – FINAL FIX
+============================== */
+
+.back-arrow-wrapper {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 10000;
+
+  /* Prevent layout shift */
+  pointer-events: none;
+}
+
+.back-arrow {
+  pointer-events: auto;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  border: none;
+
+  background: rgba(255, 255, 255, 0.9);
+  color: #6a1b3a;
+
+  font-size: 1.5rem;
+  line-height: 1;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+
+  /* No animation = no jump */
+  transition: transform 0.15s ease;
+}
+
+.back-arrow:active {
+  transform: scale(0.92);
+}
+
+/* Desktop spacing */
+@media (min-width: 768px) {
+  .back-arrow-wrapper {
+    top: 18px;
+    left: 18px;
+  }
+}
+.preserve-lines {
+  white-space: pre-line;
+}
+

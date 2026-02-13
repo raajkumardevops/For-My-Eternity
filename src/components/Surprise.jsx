@@ -1,9 +1,13 @@
 import "../styles/mobile.css";
+import BackButton from "./BackButton";
 
-const Surprise = ({ onNext }) => {
+const Surprise = ({ onNext, goBack }) => {
   return (
     <div className="app-wrapper">
-      <div className="love-card fade-in">
+      
+        <BackButton onBack={goBack} />
+        <div className="love-card fade-in">
+
         <p className="fs-5 mb-4">
           Before you go any further… 💭  
           I want you to know something.

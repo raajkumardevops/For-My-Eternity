@@ -1,15 +1,19 @@
 import { useState } from "react";
 import "../styles/mobile.css";
+import BackButton from "./BackButton";
 
-const Therapy = () => {
+const Therapy = ({ goNext, goBack }) => {
   const [message, setMessage] = useState("");
 
   return (
     <div className="app-wrapper">
+      <BackButton onBack={goBack} />
       <div className="love-card fade-in">
+        
+
         {!message ? (
           <>
-            <p className="fs-5 mb-4">
+            <p className="fs-5 mb-4 preserve-lines">
               Whenever you feel something…  
               I’m right here 💗
             </p>
@@ -18,7 +22,11 @@ const Therapy = () => {
               className="btn btn-outline-danger w-100 mb-3"
               onClick={() =>
                 setMessage(
-                  "It’s okay to feel sad sometimes. Just remember — you’re stronger than you think, and you’re never alone 🤍"
+                  `Hey… its okay to feel like this sometimes
+                    You dont have to be strong all the time
+                    If I were there, Id just sit next to you quietly,
+                    hold your hand, and remind you
+                    that this feeling will pass — and you will too 🤍`
                 )
               }
             >
@@ -29,7 +37,9 @@ const Therapy = () => {
               className="btn btn-outline-danger w-100 mb-3"
               onClick={() =>
                 setMessage(
-                  "Missing someone means your heart knows what love feels like. And mine is always with you 🫂"
+                  `Missing me means your heart knows where it belongs.
+                  And mine? It’s already with you.
+                  Always has been 🤍`
                 )
               }
             >
@@ -40,15 +50,24 @@ const Therapy = () => {
               className="btn btn-outline-danger w-100"
               onClick={() =>
                 setMessage(
-                  "That smile of yours? It makes the whole world softer. Never forget how beautiful you are ✨"
+                  `That smile of yours…
+                  it changes the way the world feels to me.
+                  I hope you never forget how beautiful you are when you smile like that ✨`
                 )
               }
             >
               ✨ When you smile
             </button>
+
+            <button
+              className="btn btn-outline-danger w-100 mt-3"
+              onClick={goNext}
+            >
+              See our memories 🖼️
+            </button>
           </>
         ) : (
-          <div className="fade-in">
+          <>
             <p className="fs-5 mb-4">{message}</p>
 
             <button
@@ -57,7 +76,7 @@ const Therapy = () => {
             >
               Back 🤍
             </button>
-          </div>
+          </>
         )}
       </div>
     </div>

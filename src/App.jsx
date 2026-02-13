@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState } from "react";
 import Welcome from "./components/Welcome";
 import Conversation from "./components/Conversation";
 import MusicPlayer from "./components/MusicPlayer";
@@ -6,25 +6,34 @@ import "./styles/mobile.css";
 import Surprise from "./components/Surprise";
 import Therapy from "./components/Therapy";
 import Gallery from "./components/Gallery";
-
+import LoveLetter from "./components/LoveLetter";
+import BackButton from "./components/BackButton"; 
 
 function App() {
-  const [step, setStep] = useState("welcome");
+  // 🔁 HISTORY-BASED NAVIGATION
+  const [history, setHistory] = useState(["welcome"]);
+  const step = history[history.length - 1];
+
   const [musicOn, setMusicOn] = useState(false);
 
-  useEffect(() => {
-  const goGallery = () => setStep("gallery");
-  window.addEventListener("goGallery", goGallery);
-  return () => window.removeEventListener("goGallery", goGallery);
-}, []);
+  // 👉 GO FORWARD
+  const goTo = (nextStep) => {
+    setHistory((prev) => [...prev, nextStep]);
+  };
 
+  // 👉 GO BACK
+  const goBack = () => {
+    setHistory((prev) =>
+      prev.length > 1 ? prev.slice(0, -1) : prev
+    );
+  };
 
   return (
     <>
-      {/* Background Music */}
+      {/* 🎵 Background Music */}
       <MusicPlayer play={musicOn} />
 
-      {/* Floating Hearts */}
+      {/* ❤️ Floating Hearts */}
       {[...Array(10)].map((_, i) => (
         <div
           key={i}
@@ -38,29 +47,40 @@ function App() {
         </div>
       ))}
 
+      {/* 🌸 WELCOME */}
       {step === "welcome" && (
         <Welcome
           onStart={() => {
-            setMusicOn(true);   // 🎵 MUSIC STARTS HERE
-            setStep("conversation");
+            setMusicOn(true);
+            goTo("conversation");
           }}
         />
       )}
 
+      {/* 💬 CONVERSATION */}
       {step === "conversation" && (
-        <Conversation onFinish={() => setStep("surprise")} />
+        <Conversation
+          onFinish={() => goTo("surprise")}
+          goBack={goBack}
+        />
       )}
 
+      {/* 🎁 SURPRISE */}
       {step === "surprise" && (
-        <Surprise onNext={() => setStep("reveal")} />
+        <Surprise
+          onNext={() => goTo("reveal")}
+          goBack={goBack}
+        />
       )}
 
-      {step === "reveal" && (
+            {/* ✨ REVEAL */}
+            {step === "reveal" && (
         <div className="app-wrapper">
+          {/* ✅ FLOATING BACK ARROW */}
+          <BackButton onBack={goBack} />
+
           <div className="love-card dramatic">
-            <h2 className="mb-4 fade-in delay-1">
-              This…
-            </h2>
+            <h2 className="mb-4 fade-in delay-1">This…</h2>
 
             <p className="fs-5 fade-in delay-2 mb-4">
               This is for you 💕
@@ -68,25 +88,42 @@ function App() {
 
             <button
               className="btn btn-outline-danger w-100 fade-in delay-2"
-              onClick={() => setStep("therapy")}
+              onClick={() => goTo("therapy")}
             >
               Continue 🤍
             </button>
 
-              <button
-                className="btn btn-outline-danger w-100 mt-3"
-                onClick={() => window.dispatchEvent(new Event("goGallery"))}
-              >
-                See our memories 🖼️
-              </button>
+            <button
+              className="btn btn-outline-danger w-100 mt-3"
+              onClick={() => goTo("gallery")}
+            >
+              See our memories 🖼️
+            </button>
           </div>
         </div>
       )}
 
-      {step === "therapy" && <Therapy />}
-      {/* 👉 THIS IS WHERE GALLERY GOES */}
-      {step === "gallery" && <Gallery />}
 
+      {/* 🧠 THERAPY */}
+      {step === "therapy" && (
+        <Therapy
+          goNext={() => goTo("gallery")}
+          goBack={goBack}
+        />
+      )}
+
+      {/* 🖼️ GALLERY */}
+      {step === "gallery" && (
+        <Gallery
+          goNext={() => goTo("letter")}
+          goBack={goBack}
+        />
+      )}
+
+      {/* 💌 LOVE LETTER */}
+      {step === "letter" && (
+        <LoveLetter goBack={goBack} />
+      )}
     </>
   );
 }
